@@ -71,6 +71,7 @@ class WindowMaster:
 
     def reshape_function(self, w, h):
 
+        # prevent dividing by zero if window height is 0
         if h == 0:
             h = 1
 
@@ -88,10 +89,10 @@ class WindowMaster:
 
         camera_settings_matrix = [0 for i in range(9)]
 
-        #calculate camera's point of view
+        # calculate camera's point of view
         camera_settings_matrix = self.recalculate_camera_settings(camera_settings_matrix)
 
-        #set camera's point of view
+        # set camera's point of view
         gluLookAt(camera_settings_matrix[0], camera_settings_matrix[1], camera_settings_matrix[2],
                   camera_settings_matrix[3], camera_settings_matrix[4], camera_settings_matrix[5],
                   camera_settings_matrix[6], camera_settings_matrix[7], camera_settings_matrix[8])
@@ -129,7 +130,7 @@ class WindowMaster:
 
     def recalculate_camera_settings(self, camera_settings_matrix):
 
-        #25 is radius of the sphere that camera moves around
+        # 25 is radius of the sphere that camera moves around
         z_camera_coordinate = 25 * sin(self.theta_angle * pi / 180) * cos(self.phi_angle * pi / 180)
         x_camera_coordinate = 25 * sin(self.theta_angle * pi / 180) * sin(self.phi_angle * pi / 180)
         y_camera_coordinate = 25 * cos(self.theta_angle * pi / 180)
@@ -138,7 +139,7 @@ class WindowMaster:
         camera_settings_matrix[1] = y_camera_coordinate
         camera_settings_matrix[2] = z_camera_coordinate
 
-        #this if_statements prevents the camera from scrolling when it passes a point perpendicular to the xOz plane
+        # this if_statements prevents the camera from scrolling when it passes a point perpendicular to the xOz plane
         if self.theta_angle > 180:
             camera_settings_matrix[7] = -1
         else:

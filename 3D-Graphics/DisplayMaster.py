@@ -46,7 +46,7 @@ class DisplayMaster:
         self.list_of_objects_to_draw = []
 
         #self.list_of_objects_to_draw.append(ObjectCube([0, 0, 0], 7))
-        self.list_of_objects_to_draw.append(ObjectSurface())
+        self.list_of_objects_to_draw.append(ObjectSurface(lambda x, y: sin(x) + cos(y)))
 
 
     def render_global_picture(self):

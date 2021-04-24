@@ -7,7 +7,7 @@ from math import sin, cos
 
 class SceneObject:
     """
-        A an abstract class of objects that must be drawed
+        A an abstract class of objects that must be drawn
     """
     __metaclass__ = ABCMeta
 
@@ -31,17 +31,14 @@ class ObjectSurface(SceneObject):
         render_me():
             Render surface
     """
-    def __init__(self):
-        pass
-
-    def surface_function(self, x, y):
-        return sin(x) + cos(y)
+    def __init__(self, surface_func):
+        self.surface_function = surface_func
 
     def calculate_vertex_normal(self, vertex):
 
         step = 0.5
 
-        #get neighbor vertexes for passed vector to calculate normal
+        # get neighbor vertexes for passed vector to calculate normal
         addit_point_1 = [vertex[0] + step, self.surface_function(vertex[0] + step, vertex[2]), vertex[2]]
         addit_point_2 = [vertex[0], self.surface_function(vertex[0], vertex[2] + step), vertex[2] + step]
 
@@ -60,7 +57,7 @@ class ObjectSurface(SceneObject):
         glColor3f(0.75, 0.3, 0.66)
         #glColor3f(1, 1, 1)
 
-        #surface bounds
+        # surface bounds
         x_lower_bound = -10
         x_upper_bound = 10
         y_lower_bound = -10
@@ -71,7 +68,7 @@ class ObjectSurface(SceneObject):
         x_current = x_lower_bound + step
         y_current = y_lower_bound + step
 
-        #draw part of surface
+        # draw part of surface
         glBegin(GL_LINES)
 
         while x_current <= x_upper_bound + 0.0001:
@@ -91,7 +88,7 @@ class ObjectSurface(SceneObject):
         x_current = x_lower_bound + step
         y_current = y_lower_bound + step
 
-        #draw part of surface
+        # draw part of surface
         while y_current <= y_upper_bound + 0.01:
 
             while x_current <= x_upper_bound + 0.01:

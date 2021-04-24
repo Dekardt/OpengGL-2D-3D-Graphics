@@ -48,7 +48,7 @@ class LightSource:
 
         glColor3f(1.0, 1.0, 1.0)
 
-        #15 is radius of the sphere that light source around
+        # 15 is radius of the sphere that light source around
         self.light_source_position = [
             15 * sin(self.theta_light_angle * pi / 180) * sin(self.phi_light_angle * pi / 180),
             15 * cos(self.theta_light_angle * pi / 180),
@@ -56,19 +56,19 @@ class LightSource:
         ]
 
         glTranslate(self.light_source_position[0], self.light_source_position[1], self.light_source_position[2])
-        #set light source position
+        # set light source position
         glLightfv(GL_LIGHT0, GL_POSITION, [*self.light_source_position, 1])
-        #set light color
+        # set light color
         glLightfv(GL_LIGHT0, GL_DIFFUSE, self.light_color)
-        #set light intensity
+        # set light intensity
         glLightfv(GL_LIGHT0, GL_CONSTANT_ATTENUATION, 0.7)
         glLightfv(GL_LIGHT0,  GL_QUADRATIC_ATTENUATION, 0.0001)
 
-        #turning the rays of light so that the back of the ball is shaded
+        # turning the rays of light so that the back of the ball is shaded
         gl_q = gluNewQuadric()
         gluQuadricOrientation(gl_q, GLU_INSIDE)
 
-        #draw visual envelope (ball)
+        # draw visual envelope (ball)
         gluSphere(gl_q, 1, 20, 20)
 
         glLoadIdentity()
