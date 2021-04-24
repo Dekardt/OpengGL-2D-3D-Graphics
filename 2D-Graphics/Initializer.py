@@ -36,7 +36,7 @@ class Initializer:
         figures_to_draw = []
         all_figure_list = self.file_data['figure']
 
-        for list_of_vertex in all_figure_list['trinagle']:
+        for list_of_vertex in all_figure_list['triangle']:
             figures_to_draw.append(Triangles(list_of_vertex))
 
         for list_of_vertex in all_figure_list['quad']:

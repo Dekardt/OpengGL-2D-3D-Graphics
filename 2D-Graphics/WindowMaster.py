@@ -51,41 +51,52 @@ class WindowMaster:
         self.displayer = DisplayMaster(self.data_initializer.get_all_figure_list(), self.data_initializer.get_figure_color(), self.data_initializer.get_move_vector())
 
     def startDrawing(self):
-        glutDisplayFunc(self.displayer.renderFigure)
+        glutDisplayFunc(self.displayer.render_figure)
         glutReshapeFunc(self.reshapeWindow)
         glutKeyboardFunc(self.keyboardControl)
         glutMainLoop()
 
     def reshapeWindow(self, w, h):
+
+        # preventing dividing by zero if window height is 0
         if h == 0:
             h = 1
 
-        koef = float(w) / h
+        # coefficient to maintain the proportions of the picture when resizing the window
+        coef = float(w) / h
         glViewport(0, 0, w, h)
 
         glMatrixMode(GL_PROJECTION)
         glLoadIdentity()
 
         if w > h:
-            gluOrtho2D(-20.0 * koef, 20.0 * koef, -20.0, 20.0)
+            gluOrtho2D(-20.0 * coef, 20.0 * coef, -20.0, 20.0)
         else:
-            gluOrtho2D(-20.0, 20.0, -20.0 / koef, 20.0 / koef)
+            gluOrtho2D(-20.0, 20.0, -20.0 / coef, 20.0 / coef)
 
         glMatrixMode(GL_MODELVIEW)
         glLoadIdentity()
 
     def keyboardControl(self, key, x1, y1):
 
+        # pressed key code
         key = ord(key)
 
+        # moving picture by pressing D/W
         if key == 100 or key == 119:
             DisplayMaster.x_center_coordinate = DisplayMaster.x_center_coordinate + DisplayMaster.move_vector[0]
             DisplayMaster.y_center_coordinate = DisplayMaster.y_center_coordinate + DisplayMaster.move_vector[1]
+
+        # moving picture by pressing A/S
         if key == 97 or key == 115:
             DisplayMaster.x_center_coordinate = DisplayMaster.x_center_coordinate - DisplayMaster.move_vector[0]
             DisplayMaster.y_center_coordinate = DisplayMaster.y_center_coordinate - DisplayMaster.move_vector[1]
+
+        # zoom in
         if key == 43:
             DisplayMaster.scaling_coef = DisplayMaster.scaling_coef * 1.5
+
+        # zoom out
         if key == 45:
             DisplayMaster.scaling_coef = DisplayMaster.scaling_coef / 1.5
         glutPostRedisplay()

@@ -35,11 +35,10 @@ class DisplayMaster:
         DisplayMaster.figure_color = figure_color
         DisplayMaster.move_vector = move_vector
 
-    #
-    def renderFigure(self):
+    def render_figure(self):
         glClear(GL_COLOR_BUFFER_BIT)
 
-        for figures in self.list_of_figures_to_draw:
-            figures.draw_me()
+        for figure in self.list_of_figures_to_draw:
+            figure.draw_me()
 
         glFlush()
